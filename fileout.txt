@@ -1,0 +1,7 @@
+Filled container. 
+ Container contains 3 elements.
+0: It is Plane: грузоподъемность = 1000, дальность полета = 8000, расстояние между пунктами = 7000, скорость = 3700
+1: It is Traine: count = 30, расстояние между пунктами = 8000, скорость = 90
+2: It is Traine: count = 32, расстояние между пунктами = 700, скорость = 700
+Empty container. 
+ Container contains 0 elements.

@@ -63,3 +63,12 @@ public:
 // TODO: add headers that you want to pre-compile here
 
 #endif //PCH_H
+enum type_of_ship { LINER, TUG, TANKER };
+struct ship : public transport {
+	int water_displacement;
+	type_of_ship type;
+public:
+	void InData(ifstream& ifst);
+	void Out(ofstream& ofst);
+	ship() {}
+};

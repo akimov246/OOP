@@ -19,7 +19,6 @@ public:
 	static transport* In(ifstream& ifst);
 	virtual void InData(ifstream& ifst) = 0; // ввод
 	virtual void Out(ofstream& ofst) = 0; // вывод
-	float Travel_time();
 	void OutCommon(ofstream& ofst);
 };
 class container
@@ -46,7 +45,7 @@ public:
 class plane : public transport {
 	int range;
 	int c;
-
+	int cargo;
 public:
 	void InData(ifstream& ifst); // ввод
 	void Out(ofstream& ofst); // вывод

@@ -1,8 +1,7 @@
 Filled container. 
- Container contains 2 elements.
-0: It is Plane: a?ociiiauaiiinou = 1000, aaeuiinou iieaoa = 8000, ?annoiyiea ia?ao ioieoaie = 7000, nei?inou = 3700
-eaaaeuiia a?aiy iooe = 1.89189
-1: It is Traine: count = 30, ?annoiyiea ia?ao ioieoaie = 8000, nei?inou = 90
-eaaaeuiia a?aiy iooe = 88.8889
+ Container contains 3 elements.
+0: It is Plane: ãðóçîïîäúåìíîñòü = 1000, äàëüíîñòü ïîëåòà = 8000, ãðóç â äàííûé ìîìåíò = 900, ðàññòîÿíèå ìåæäó ïóíêòàìè = 7000, ñêîðîñòü = 3700
+1: It is Traine: count = 30, ðàññòîÿíèå ìåæäó ïóíêòàìè = 8000, ñêîðîñòü = 90
+2: It is Traine: count = 32, ðàññòîÿíèå ìåæäó ïóíêòàìè = 700, ñêîðîñòü = 700
 Empty container. 
  Container contains 0 elements.

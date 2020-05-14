@@ -113,81 +113,25 @@ void container::Out(ofstream& ofst)
 	for (int j = 0; j < count; j++) {
 		ofst << j << ": ";
 		current->data->Out(ofst);
-		ofst << "идеальное время пути = " <<
-			current->data->Travel_time() << endl;
 		current = current->Next;
 	}
 }
-float transport::Travel_time()
+void transport::Out_only_plane(ofstream& ofst)
 {
-	float time;
-	time = static_cast<float>(this->distance) / static_cast<float>(this->spead);
-	return time;
+	ofst << endl;
 }
-bool transport::Compare(transport& other)
+void plane::Out_only_plane(ofstream& ofst)
 {
-	return Travel_time() < other.Travel_time();
+	Out(ofst);
 }
-void container::Sort()
+void container::Out_only_plane(ofstream& ofst)
 {
-	Node* current;
-	current = Top;
-	Node* currentnext = current->Next;
-	for (int i = 1; i < count; i++) {
-		for (int j = 1; j < count; j++) {
-			if (current->data->Compare(*currentnext->data)) {
-				if (current->data->Travel_time < current->Next->data->Travel_time)
-					//std::cin >> "D";
-					current->Processsort(Top);
-				current = current->Next;
-			}
-			else
-				current = current->Next;
-		}
-		current = Top;
+	ofst << "Only planes" << endl;
+	Node* current = Top;
+	for (int i = 0; i < count; i++) {
+		ofst << i << ": ";
+		current->data->Out_only_plane(ofst);
+		current = current->Next;
 	}
 }
-void container::Node::Processsort(Node*& Top)
-{
-	Node* currentnext = this->Next;
-	if (this == Top)//определяем указывает ли на голову
-	{
-		if (this->Next->Next == this)
-		{
-			Top = this->Next;
-		}
-		else
-		{
-			this->castl();
-			Top = this;
-		}
-	}
-	else
-	{
-		if (this->Next->Next == this)
-		{
-			Top = this->Next;
-		}
-		else
-			this->castl();
-	}
-}
-void container::Node::castl()
-{
-	Node* currentnext = this->Next;
-	//Создаем копии, для смены местами
-	transport* q1 = this->data;
-	transport* q2 = currentnext->data;
-	this->data = q2;
-	currentnext->data = q1;
-	/*currentnext->Next = this->Next;
-	this->Next = currentnext;
-	this->Prev = currentnext->Prev;
-	currentnext->Prev = this;
-	currentnext = this->Next;
-	currentnext->Next->Prev = currentnext;
-	this->Prev->Next = this;*/
-}
-
-
 // В целом этот файл можно пропустить, но не удаляйте его, если вы используете предкомпилированные заголовки.

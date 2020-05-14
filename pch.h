@@ -19,9 +19,8 @@ public:
 	static transport* In(ifstream& ifst);
 	virtual void InData(ifstream& ifst) = 0; // ввод
 	virtual void Out(ofstream& ofst) = 0; // вывод
-	float Travel_time();
+	virtual void Out_only_plane(ofstream& ofst);
 	void OutCommon(ofstream& ofst);
-	bool Compare(transport& other);
 };
 class container
 {
@@ -32,17 +31,15 @@ private:
 		Node* Next;
 		Node* Prev;
 		transport* data;
-		void Processsort(Node*& Top);//меняет местами 2 элемента и изменяет верхушку списка
-		void castl();
 	};
 	Node* Top;
 	int count;
 public:
+	void Out_only_plane(ofstream& ofst);
 	void In(ifstream& ifst); // ввод
 	void Out(ofstream& ofst); // вывод
 	void Clear(); // очистка контейнера от фигур
 	container(); // инициализация контейнера
-	void Sort();
 	~container() { Clear(); }
 };
 
@@ -54,6 +51,7 @@ class plane : public transport {
 public:
 	void InData(ifstream& ifst); // ввод
 	void Out(ofstream& ofst); // вывод
+	void Out_only_plane(ofstream& ofst);
 	plane() {} // создание без инициализации.
 };
 class traine : public transport {

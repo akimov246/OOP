@@ -10,18 +10,6 @@ void plane::InData(ifstream& ifst) {
 void traine::InData(ifstream& ifst) {
 	ifst >> count;
 }
-void ship::InData(ifstream& ifst)
-{
-	int type;
-	ifst >> water_displacement;
-	ifst >> type;
-	if (type == 1)
-		type = LINER;
-	else if (type == 2)
-		type = TANKER;
-	else if (type == 3)
-		type = TUG;
-}
 void plane::Out(ofstream& ofst) {
 	ofst << "It is Plane: грузоподъемность = " << c
 		<< ", дальность полета = " << range;
@@ -31,16 +19,6 @@ void plane::Out(ofstream& ofst) {
 void traine::Out(ofstream& ofst) {
 	ofst << "It is Traine: count = " << count;
 	OutCommon(ofst);
-}
-void ship::Out(ofstream& ofst)
-{
-	ofst << "It is Ship: водоизмещение = " << water_displacement;
-	if (type == LINER)
-		ofst << ", тип судна = " << LINER;
-	else if (type == TANKER)
-		ofst << ", тип судна = " << TANKER;
-	else if (type == TUG)
-		ofst << ", тип судна = " << TUG;
 }
 transport* transport::In(ifstream& ifst)
 {
@@ -53,9 +31,6 @@ transport* transport::In(ifstream& ifst)
 	else if (key == 2)
 	{
 		s = new traine;
-	}
-	else if (key == 3) {
-		s = new ship;
 	}
 	else
 		return 0;
@@ -138,8 +113,16 @@ void container::Out(ofstream& ofst)
 	for (int j = 0; j < count; j++) {
 		ofst << j << ": ";
 		current->data->Out(ofst);
+		ofst << "идеальное время пути = " <<
+			current->data->Travel_time() << endl;
 		current = current->Next;
 	}
+}
+float transport::Travel_time()
+{
+	float time;
+	time = static_cast<float>(this->distance) / static_cast<float>(this->spead);
+	return time;
 }
 
 // В целом этот файл можно пропустить, но не удаляйте его, если вы используете предкомпилированные заголовки.

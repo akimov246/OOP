@@ -1,10 +1,10 @@
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+п»ї// РЎРѕРІРµС‚С‹ РїРѕ РЅР°С‡Р°Р»Сѓ СЂР°Р±РѕС‚С‹ 
+//   1. Р’ РѕРєРЅРµ РѕР±РѕР·СЂРµРІР°С‚РµР»СЏ СЂРµС€РµРЅРёР№ РјРѕР¶РЅРѕ РґРѕР±Р°РІР»СЏС‚СЊ С„Р°Р№Р»С‹ Рё СѓРїСЂР°РІР»СЏС‚СЊ РёРјРё.
+//   2. Р’ РѕРєРЅРµ Team Explorer РјРѕР¶РЅРѕ РїРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ Рє СЃРёСЃС‚РµРјРµ СѓРїСЂР°РІР»РµРЅРёСЏ РІРµСЂСЃРёСЏРјРё.
+//   3. Р’ РѕРєРЅРµ "Р’С‹С…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ" РјРѕР¶РЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ РІС‹С…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ СЃР±РѕСЂРєРё Рё РґСЂСѓРіРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ.
+//   4. Р’ РѕРєРЅРµ "РЎРїРёСЃРѕРє РѕС€РёР±РѕРє" РјРѕР¶РЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ РѕС€РёР±РєРё.
+//   5. РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РІС‹Р±РµСЂРёС‚Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ "РџСЂРѕРµРєС‚" > "Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚", С‡С‚РѕР±С‹ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р»С‹ РєРѕРґР°, РёР»Рё "РџСЂРѕРµРєС‚" > "Р”РѕР±Р°РІРёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚", С‡С‚РѕР±С‹ РґРѕР±Р°РІРёС‚СЊ РІ РїСЂРѕРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ С„Р°Р№Р»С‹ РєРѕРґР°.
+//   6. Р§С‚РѕР±С‹ СЃРЅРѕРІР° РѕС‚РєСЂС‹С‚СЊ СЌС‚РѕС‚ РїСЂРѕРµРєС‚ РїРѕР·Р¶Рµ, РІС‹Р±РµСЂРёС‚Рµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ "Р¤Р°Р№Р»" > "РћС‚РєСЂС‹С‚СЊ" > "РџСЂРѕРµРєС‚" Рё РІС‹Р±РµСЂРёС‚Рµ SLN-С„Р°Р№Р».
 
 
 #ifndef PCH_H
@@ -16,53 +16,80 @@ private:
 	int spead;
 	int distance;
 public:
-	static transport* In(ifstream& ifst);
-	virtual void InData(ifstream& ifst) = 0; // ввод
-	virtual void Out(ofstream& ofst) = 0; // вывод
-	virtual void Out_only_plane(ofstream& ofst);
-	void OutCommon(ofstream& ofst);
+	//РґР»СЏ С‚РµСЃС‚РѕРІ
+	int get_distance();
+	int get_spead();
+	void set_distance(int distance);
+	void set_spead(int spead);
+	static int from_file_to_int(ifstream &ifst);
+	virtual string getall() = 0;
+
+	static transport* In(ifstream &ifst);
+	virtual void InData(ifstream &ifst) = 0; // РІРІРѕРґ
+	virtual void Out(ofstream &ofst) = 0; // РІС‹РІРѕРґ
+	float Travel_time();
+	virtual void Out_only_plane(ofstream &ofst);
+	void OutCommon(ofstream &ofst);
+	bool Compare(transport &other);
 };
 class container
 {
 private:
-	class Node {
+	class Node {		
 	public:
 		Node();
 		Node* Next;
 		Node* Prev;
 		transport* data;
+		//void Processsort(Node* &Top);//РІС‹Р·С‹РІР°РµС‚ С„СѓРЅРєС†РёСЋ castl Рё РёР·РјРµРЅСЏРµС‚ РІРµСЂС…СѓС€РєСѓ СЃРїРёСЃРєР°
+		void castl();//РјРµРЅСЏРµС‚ РјРµСЃС‚Р°РјРё 2 СЌР»РµРјРµРЅС‚Р° 
 	};
 	Node* Top;
 	int count;
 public:
-	void Out_only_plane(ofstream& ofst);
-	void In(ifstream& ifst); // ввод
-	void Out(ofstream& ofst); // вывод
-	void Clear(); // очистка контейнера от фигур
-	container(); // инициализация контейнера
+	Node* get_Top()
+	{
+		return this->Top;
+	};
+	int get_count();
+	void Out_only_plane(ofstream &ofst);
+	void In(ifstream &ifst); // РІРІРѕРґ
+	void Out(ofstream &ofst); // РІС‹РІРѕРґ
+	void Clear(); // РѕС‡РёСЃС‚РєР° РєРѕРЅС‚РµР№РЅРµСЂР° РѕС‚ С„РёРіСѓСЂ
+	container(); // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРѕРЅС‚РµР№РЅРµСЂР°
+	void Sort();
 	~container() { Clear(); }
 };
-
-
 class plane : public transport {
 	int range;
 	int c;
-
+	int cargo;
 public:
-	void InData(ifstream& ifst); // ввод
-	void Out(ofstream& ofst); // вывод
-	void Out_only_plane(ofstream& ofst);
-	plane() {} // создание без инициализации.
+	string getall();
+
+	void InData(ifstream &ifst); // РІРІРѕРґ
+	void Out(ofstream &ofst); // РІС‹РІРѕРґ
+	void Out_only_plane(ofstream &ofst);
+	plane() {} // СЃРѕР·РґР°РЅРёРµ Р±РµР· РёРЅРёС†РёР°Р»РёР·Р°С†РёРё.
 };
 class traine : public transport {
 	int count;
 
 public:
-	void InData(ifstream& ifst); // ввод
-	void Out(ofstream& ofst); // вывод
-	traine() {} // создание без инициализации.
+	string getall();
+	void InData(ifstream &ifst); // РІРІРѕРґ
+	void Out(ofstream &ofst); // РІС‹РІРѕРґ
+	traine() {} // СЃРѕР·РґР°РЅРёРµ Р±РµР· РёРЅРёС†РёР°Р»РёР·Р°С†РёРё.
 };
-
+enum type_of_ship { LINER, TUG, TANKER };
+struct ship : public transport {
+	int water_displacement;
+	type_of_ship type;
+public:
+	string getall();
+	void InData(ifstream &ifst);
+	void Out(ofstream &ofst);
+	ship() {}
+};
 // TODO: add headers that you want to pre-compile here
-
 #endif //PCH_H

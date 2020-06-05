@@ -32,6 +32,11 @@ public:
 	virtual void Out_only_plane(ofstream &ofst);//вывод только plane
 	void OutCommon(ofstream &ofst);//вывод общих полей
 	bool Compare(transport &other);//сравнение
+
+	virtual void MultiMethod(transport *other, ofstream &ofst) = 0;//мультиметоды
+	virtual void MMplane(ofstream &ofst) = 0;//мультиметоды
+	virtual void MMtraine(ofstream &ofst) = 0;//мультиметоды
+	virtual void MMship(ofstream &ofst) = 0;//мультиметоды
 };
 class container
 {
@@ -58,6 +63,7 @@ public:
 	void Clear(); // очистка контейнера от фигур
 	container(); // инициализация контейнера
 	void Sort();// сортировка
+	void MultiMethod(ofstream &ofst);//мультиметод
 	~container()
 	{
 		Clear();
@@ -76,6 +82,11 @@ public:
 	plane()// создание без инициализации.
 	{
 	}
+	void MultiMethod(transport *other, ofstream &ofst);//мультиметоды
+	void MMplane(ofstream &ofst);//мультиметоды
+	void MMtraine(ofstream &ofst);//мультиметоды
+	void MMship(ofstream &ofst);//мультиметоды
+
 };
 class traine : public transport
 {
@@ -87,6 +98,10 @@ public:
 	traine()// создание без инициализации.
 	{
 	}
+	void MultiMethod(transport *other, ofstream &ofst);//мультиметоды
+	void MMplane(ofstream &ofst);//мультиметоды
+	void MMtraine(ofstream &ofst);//мультиметоды
+	void MMship(ofstream &ofst);//мультиметоды
 };
 enum type_of_ship { LINER, TUG, TANKER };
 struct ship : public transport 
@@ -100,6 +115,10 @@ public:
 	ship() 
 	{
 	}
+	void MultiMethod(transport *other, ofstream &ofst);//мультиметоды
+	void MMplane(ofstream &ofst);//мультиметоды
+	void MMtraine(ofstream &ofst);//мультиметоды
+	void MMship(ofstream &ofst);//мультиметоды
 };
 // TODO: add headers that you want to pre-compile here
 #endif //PCH_H

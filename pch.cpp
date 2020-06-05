@@ -5,6 +5,70 @@
 #include <fstream>
 #include <string>
 using namespace std;
+//мультиметоды
+	void container::MultiMethod(ofstream & ofst)
+	{
+		ofst << "Multimethod." << endl;
+		node* current_i = top;
+		for (int i = 0; i < count - 1; i++) {
+			node* current_j = current_i->next;
+			for (int j = i + 1; j < count; j++) {
+				current_i->data->MultiMethod(current_j->data, ofst);
+				current_i->data->Out(ofst);
+				current_j->data->Out(ofst);
+				current_j = current_j->next;
+			}
+			current_i = current_i->next;
+		}
+	}
+	void plane::MultiMethod(transport * other, ofstream & ofst)
+	{
+		other->MMplane(ofst);
+	}
+	void plane::MMplane(ofstream & ofst)
+	{
+		ofst << "Plane and Plane" << endl;
+	}
+	void plane::MMtraine(ofstream & ofst)
+	{
+		ofst << "Traine and Plane" << endl;
+	}
+	void plane::MMship(ofstream & ofst)
+	{
+		ofst << "Ship and Plane" << endl;
+	}
+	void traine::MultiMethod(transport*other, ofstream & ofst)
+	{
+		other->MMtraine(ofst);
+	}
+	void traine::MMplane(ofstream & ofst)
+	{
+		ofst << "Plane and Traine" << endl;
+	}
+	void traine::MMtraine(ofstream & ofst)
+	{
+		ofst << "Traine and Traine" << endl;
+	}
+	void traine::MMship(ofstream & ofst)
+	{
+		ofst << "Ship and Traine" << endl;
+	}
+	void ship::MultiMethod(transport*other, ofstream & ofst)
+	{
+		other->MMship(ofst);
+	}
+	void ship::MMplane(ofstream & ofst)
+	{
+		ofst << "Plane and Ship" << endl;
+	}
+	void ship::MMtraine(ofstream & ofst)
+	{
+		ofst << "Traine and Ship" << endl;
+	}
+	void ship::MMship(ofstream & ofst)
+	{
+		ofst << "Ship and Ship" << endl;
+	}
 	void plane::InData(ifstream &ifst) 
 	{
 		this->c=this->From_file_to_int(ifst);

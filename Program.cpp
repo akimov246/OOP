@@ -30,6 +30,9 @@ int main(int argc, char* argv[])
 	ofst << "Filled container. " << endl;
 	c.Out(ofst); //вывод контейнера
 	ofst << endl;
+	
+	c.MultiMethod(ofst);//мультиметоды
+
 	c.Sort();// сортировка контейнера
 	ofst << endl;
 	c.Out(ofst);// вывод отсортированного контейнера

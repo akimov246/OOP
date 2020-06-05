@@ -5,23 +5,21 @@
 #include <fstream>
 #include <string>
 using namespace std;
-	void plane::InData(ifstream &ifst) {
-		this->c=this->from_file_to_int(ifst);
-		this->range = this->from_file_to_int(ifst);
-		this->cargo = this->from_file_to_int(ifst);
-		//ifst >> c  >> range >> cargo;
+	void plane::InData(ifstream &ifst) 
+	{
+		this->c=this->From_file_to_int(ifst);
+		this->range = this->From_file_to_int(ifst);
+		this->cargo = this->From_file_to_int(ifst);
 	}
-	void traine::InData(ifstream &ifst) {
-		this->count = this->from_file_to_int(ifst);
-		//ifst >> count ;
+	void traine::InData(ifstream &ifst) 
+	{
+		this->count = this->From_file_to_int(ifst);
 	}
 	void ship::InData(ifstream & ifst)
 	{
 		int typ;
-		this->water_displacement = this->from_file_to_int(ifst);
-		//ifst >> water_displacement;
-		//ifst >> typ;
-		typ = this->from_file_to_int(ifst);
+		this->water_displacement = this->From_file_to_int(ifst);
+		typ = this->From_file_to_int(ifst);
 		if (typ == 1)
 			type = LINER;
 		else if (typ == 2)
@@ -35,19 +33,20 @@ using namespace std;
 		}
 	}
 
-	void plane::Out(ofstream &ofst) {
-		ofst << "It is Plane: грузоподъемность = " << c
-			<< ", дальность полета = " << range << ", груз в данный момент = " << cargo;
+	void plane::Out(ofstream &ofst) 
+	{
+		ofst << "It is Plane: грузоподъемность = " << c 
+		<< ", дальность полета = " << range << ", груз в данный момент = " << cargo;
 		OutCommon(ofst);
 		ofst << "идеальное время пути = " <<
-			this->Travel_time() << endl;
-
+		this->Travel_time() << endl;
 	}
-	void traine::Out(ofstream &ofst) {
+	void traine::Out(ofstream &ofst) 
+	{
 		ofst << "It is Traine: count = " << count ;
 		OutCommon(ofst);
 		ofst << "идеальное время пути = " <<
-			this->Travel_time() << endl;
+		this->Travel_time() << endl;
 	}
 	void ship::Out(ofstream & ofst)
 	{
@@ -60,24 +59,23 @@ using namespace std;
 			ofst << ", тип судна = TUG";
 		OutCommon(ofst);
 		ofst << "идеальное время пути = " <<
-			this->Travel_time() << endl;
-
+		this->Travel_time() << endl;
 	}
 	transport* transport::In(ifstream &ifst)
 	{
 		transport *s;
 		int key;
-		key = transport::from_file_to_int(ifst);
-		//key = s->from_file_to_int(ifst);
-		//ifst >> key;
-		if (key == 1) {
+		key = transport::From_file_to_int(ifst);
+		if (key == 1) 
+		{
 			s = new plane;
 		}
 		else if (key == 2)
 		{
 			s = new traine;
 		}
-		else if (key == 3) {
+		else if (key == 3) 
+		{
 			s = new ship;
 		}
 		else
@@ -86,34 +84,33 @@ using namespace std;
 			exit(0);
 		};
 		s->InData(ifst);
-		s->distance = transport::from_file_to_int(ifst);
-		s->spead = transport::from_file_to_int(ifst);
-		//ifst >> s->distance >> s->spead;
+		s->distance = transport::From_file_to_int(ifst);
+		s->spead = transport::From_file_to_int(ifst);
 		return s;
 	}
 	void transport::OutCommon(ofstream & ofst)
 	{
 		ofst << ", расстояние между пунктами = " << distance << ", скорость = " << spead << endl;
 	}
-	container::Node::Node()
+	container::node::node()
 	{
-		this->Next = nullptr;
-		this->Prev = nullptr;
+		this->next = nullptr;
+		this->prev = nullptr;
 		this->data = nullptr;
 	}
 	
 	container::container()
 	{
-		Top = nullptr;
+		top = nullptr;
 		count = 0;
 	}
 	void container::Clear()
 	{
-		Node* current = Top;
+		node* current = top;
 		for (int i = 1; i < count; i++)
 		{
-			current = current->Next;
-			delete current->Prev;
+			current = current->next;
+			delete current->prev;
 		}
 		delete current;
 		count = 0;
@@ -124,28 +121,27 @@ using namespace std;
 		while (!ifst.eof()) {
 			if (count == 0)
 			{
-				Top = new Node;
-				Top->Next = Top;
-				Top->Prev = Top;
-				if ((Top->data= transport::In(ifst)) != 0)
+				top = new node;
+				top->next = top;
+				top->prev = top;
+				if ((top->data= transport::In(ifst)) != 0)
 					flag = 1;
 				else
 					flag = 0;
-				
 			}
 			else
 			{
-				Node *current = Top;
+				node *current = top;
 				for (int j = 1; j < count; j++)
 				{
-					current = current->Next;
+					current = current->next;
 				}
-				current->Next = new Node;
-				if ((current->Next->data = transport::In(ifst)) != 0)
+				current->next = new node;
+				if ((current->next->data = transport::In(ifst)) != 0)
 				{
-					Top->Prev = current->Next;
-					current->Next->Prev = current;
-					current->Next->Next = Top;
+					top->prev = current->next;
+					current->next->prev = current;
+					current->next->next = top;
 					flag = 1;
 				}
 				else
@@ -160,14 +156,14 @@ using namespace std;
 
 	void container::Out(ofstream & ofst)
 	{
-		Node* current = Top;
+		node* current = top;
 		ofst << " Container contains " << count
 			<< " elements." << endl;
-		for (int j = 0; j < count; j++) {
+		for (int j = 0; j < count; j++) 
+		{
 			ofst << j << ": ";
-			current->data->Out(ofst);
-			
-			current = current->Next;
+			current->data->Out(ofst);	
+			current = current->next;
 		}
 	}
 
@@ -183,24 +179,27 @@ using namespace std;
 	}
 	void container::Sort()
 	{
-		Node* current;
-		current = Top;
-		Node* currentnext = current->Next;
-		for (int i = 1; i < count; i++) {
-			for (int j = 1; j < count; j++) {
-				if (current->data->Compare(*current->Next->data)) {
+		node* current;
+		current = top;
+		node* currentnext = current->next;
+		for (int i = 1; i < count; i++) 
+		{
+			for (int j = 1; j < count; j++) 
+			{
+				if (current->data->Compare(*current->next->data)) 
+				{
 					current->castl();
-					current = current->Next;
+					current = current->next;
 				}
 				else
-					current = current->Next;
+					current = current->next;
 			}
-			current = Top;
+			current = top;
 		}
 	}
-	void container::Node::castl()
+	void container::node::castl()
 	{
-		Node* currentnext = this->Next;
+		node* currentnext = this->next;
 		//Создаем копии, для смены местами
 		transport* q1 = this->data;
 		transport* q2 = currentnext->data;
@@ -219,44 +218,46 @@ using namespace std;
 	void container::Out_only_plane(ofstream & ofst)
 	{
 		ofst << "Only planes" << endl;
-		Node* current = Top;
-		for (int i = 0; i < count; i++) {
+		node* current = top;
+		for (int i = 0; i < count; i++) 
+		{
 			ofst << i << ": ";
 			current->data->Out_only_plane(ofst);
-			current = current->Next;
+			current = current->next;
 		}
 	}
+
 	//дальше функции для тестов
-	int transport::get_distance()
+	int transport::Get_distance()
 	{
 		return this->distance;
 	}
-	int transport::get_spead()
+	int transport::Get_spead()
 	{
 		return this->spead;
 	}
-	string plane::getall()
+	string plane::Getall()
 	{
 		return to_string(this->c) + to_string(this->range) + to_string(this->cargo);
 	}
-	string traine::getall()
+	string traine::Getall()
 	{
 		return to_string(this->count);
 	}
-	string ship::getall()
+	string ship::Getall()
 	{
 		return to_string(this->water_displacement) + to_string(this->type);
 	}
-	void transport::set_distance(int distance)
+	void transport::Set_distance(int distance)
 	{
 		this->distance = distance;
 	}
-	void transport::set_spead(int spead)
+	void transport::Set_spead(int spead)
 	{
 		this->spead = spead;
 	}
 
-	int transport::from_file_to_int(ifstream & ifst)
+	int transport::From_file_to_int(ifstream & ifst)
 	{
 
 			string str;
@@ -276,7 +277,6 @@ using namespace std;
 					}
 					else
 						flag = false;
-
 				}
 			}
 			if (flag == false)
@@ -288,7 +288,7 @@ using namespace std;
 			return stoi(str);
 		}
 	
-	int container::get_count()
+	int container::Get_count()
 	{
 		return this->count;
 	}

@@ -8,10 +8,11 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	int a;
-	if (argc != 3) {
+	if (argc != 3) 
+	{
 		cout << "incorrect command line! "
-			"Waited: command in_file out_file"
-			<< endl;
+		"Waited: command in_file out_file"
+		<< endl;
 		system("pause");
 		exit(1);
 	}
@@ -25,19 +26,19 @@ int main(int argc, char* argv[])
 	cout << "Start" << endl;
 	setlocale(LC_ALL, "Russian");
 	container c;
-	c.In(ifst);
+	c.In(ifst); //заполнение котейнера
 	ofst << "Filled container. " << endl;
-	c.Out(ofst);
+	c.Out(ofst); //вывод контейнера
 	ofst << endl;
-	c.Sort();
+	c.Sort();// сортировка контейнера
 	ofst << endl;
-	c.Out(ofst);
+	c.Out(ofst);// вывод отсортированного контейнера
 	ofst << endl;
-	c.Out_only_plane(ofst);
+	c.Out_only_plane(ofst);// вывод только plane
 	ofst << endl;
-	c.Clear();
+	c.Clear();// отчистка контейнера
 	ofst << "Empty container. " << endl;
-	c.Out(ofst);
+	c.Out(ofst); //вывод пустого контейнера
 	cout << "Stop" << endl;
 	system("pause");
 	cin >> a;

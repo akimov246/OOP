@@ -11,85 +11,95 @@
 #define PCH_H
 #include <fstream>
 using namespace std;
-class transport {
+class transport
+{
 private:
 	int spead;
 	int distance;
 public:
 	//для тестов
-	int get_distance();
-	int get_spead();
-	void set_distance(int distance);
-	void set_spead(int spead);
-	static int from_file_to_int(ifstream &ifst);
-	virtual string getall() = 0;
+	int Get_distance();//получить поле distance
+	int Get_spead();//получить поле spead
+	void Set_distance(int distance);//"положить" в поле distance значение
+	void Set_spead(int spead);//"положить" в поле spead значение
+	static int From_file_to_int(ifstream &ifst);//проверка корректности информации считываемой с файла
+	virtual string Getall() = 0;
 
-	static transport* In(ifstream &ifst);
+	static transport* In(ifstream &ifst);//ввод
 	virtual void InData(ifstream &ifst) = 0; // ввод
 	virtual void Out(ofstream &ofst) = 0; // вывод
-	float Travel_time();
-	virtual void Out_only_plane(ofstream &ofst);
-	void OutCommon(ofstream &ofst);
-	bool Compare(transport &other);
+	float Travel_time();//подсчет времени передвижения объекта
+	virtual void Out_only_plane(ofstream &ofst);//вывод только plane
+	void OutCommon(ofstream &ofst);//вывод общих полей
+	bool Compare(transport &other);//сравнение
 };
 class container
 {
 private:
-	class Node {		
+	class node {
 	public:
-		Node();
-		Node* Next;
-		Node* Prev;
-		transport* data;
-		//void Processsort(Node* &Top);//вызывает функцию castl и изменяет верхушку списка
+		node();
+		node* next;// указатель на следующий элемент списка
+		node* prev;// указатель на предыдущий элемент списка
+		transport* data;//указатель на информацию
 		void castl();//меняет местами 2 элемента 
 	};
-	Node* Top;
-	int count;
+	node* top;//указатель на  верхушку списка
+	int count;//кол-во элементов списка
 public:
-	Node* get_Top()
+	node* Get_Top()//возвращает указатель на верхушку списка
 	{
-		return this->Top;
+		return this->top;
 	};
-	int get_count();
-	void Out_only_plane(ofstream &ofst);
+	int Get_count();// получить count
+	void Out_only_plane(ofstream &ofst);//вывод только plane 
 	void In(ifstream &ifst); // ввод
 	void Out(ofstream &ofst); // вывод
 	void Clear(); // очистка контейнера от фигур
 	container(); // инициализация контейнера
-	void Sort();
-	~container() { Clear(); }
+	void Sort();// сортировка
+	~container()
+	{
+		Clear();
+	}
 };
 class plane : public transport {
 	int range;
 	int c;
 	int cargo;
 public:
-	string getall();
+	string Getall();//функция для тестов
 
 	void InData(ifstream &ifst); // ввод
 	void Out(ofstream &ofst); // вывод
-	void Out_only_plane(ofstream &ofst);
-	plane() {} // создание без инициализации.
+	void Out_only_plane(ofstream &ofst);// вывод только plane
+	plane()// создание без инициализации.
+	{
+	}
 };
-class traine : public transport {
+class traine : public transport
+{
 	int count;
-
 public:
-	string getall();
+	string Getall();
 	void InData(ifstream &ifst); // ввод
 	void Out(ofstream &ofst); // вывод
-	traine() {} // создание без инициализации.
+	traine()// создание без инициализации.
+	{
+	}
 };
 enum type_of_ship { LINER, TUG, TANKER };
-struct ship : public transport {
+struct ship : public transport 
+{
 	int water_displacement;
 	type_of_ship type;
 public:
-	string getall();
-	void InData(ifstream &ifst);
-	void Out(ofstream &ofst);
-	ship() {}
+	string Getall();
+	void InData(ifstream &ifst);//ввод
+	void Out(ofstream &ofst);//вывод
+	ship() 
+	{
+	}
 };
 // TODO: add headers that you want to pre-compile here
 #endif //PCH_H
